@@ -146,8 +146,9 @@ obj-y				+= platform/
 #common clk code
 obj-y				+= clk/
 
-# iommu/ comes before gpu as gpu are using iommu controllers
 obj-$(CONFIG_IOMMU_SUPPORT)	+= iommu/
+
+obj-y				+= elliptic/
 
 obj-$(CONFIG_MAILBOX)		+= mailbox/
 obj-$(CONFIG_HWSPINLOCK)	+= hwspinlock/
