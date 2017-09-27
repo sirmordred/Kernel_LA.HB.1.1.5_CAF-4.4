@@ -646,10 +646,10 @@ int qpnp_pon_is_ps_hold_reset(void)
 	if (!pon)
 		return 0;
 
-	rc = spmi_ext_register_readl(pon->spmi->ctrl, pon->spmi->sid,
+	rc = spmi_ext_register_readl(pon->pdev->ctrl, pon->pdev->sid,
 		QPNP_POFF_REASON1(pon), &reg, 1);
 	if (rc) {
-		dev_err(&pon->spmi->dev,
+		dev_err(&pon->pdev->dev,
 			"Unable to read addr=%x, rc(%d)\n",
 			QPNP_POFF_REASON1(pon), rc);
 		return 0;
@@ -659,13 +659,13 @@ int qpnp_pon_is_ps_hold_reset(void)
 	if (reg & 0x2)
 		return 1;
 
-	dev_info(&pon->spmi->dev,
+	dev_info(&pon->pdev->dev,
 		"hw_reset reason1 is 0x%x\n", reg);
 
-	rc = spmi_ext_register_readl(pon->spmi->ctrl, pon->spmi->sid,
+	rc = spmi_ext_register_readl(pon->pdev->ctrl, pon->pdev->sid,
 		QPNP_POFF_REASON2(pon), &reg, 1);
 
-	dev_info(&pon->spmi->dev,
+	dev_info(&pon->pdev->dev,
 		"hw_reset reason2 is 0x%x\n", reg);
 	return 0;
 }
@@ -680,10 +680,10 @@ int qpnp_pon_is_lpk(void)
 	if (!pon)
 		return 0;
 
-	rc = spmi_ext_register_readl(pon->spmi->ctrl, pon->spmi->sid,
+	rc = spmi_ext_register_readl(pon->pdev->ctrl, pon->pdev->sid,
 		QPNP_POFF_REASON1(pon), &reg, 1);
 	if (rc) {
-		dev_err(&pon->spmi->dev,
+		dev_err(&pon->pdev->dev,
 			"Unable to read addr=%x, rc(%d)\n",
 			QPNP_POFF_REASON1(pon), rc);
 		return 0;
@@ -693,13 +693,13 @@ int qpnp_pon_is_lpk(void)
 	if (reg & 0x80)
 		return 1;
 
-	dev_info(&pon->spmi->dev,
+	dev_info(&pon->pdev->dev,
 	"hw_reset reason1 is 0x%x\n", reg);
 
-	rc = spmi_ext_register_readl(pon->spmi->ctrl, pon->spmi->sid,
+	rc = spmi_ext_register_readl(pon->pdev->ctrl, pon->pdev->sid,
 		QPNP_POFF_REASON2(pon), &reg, 1);
 
-	dev_info(&pon->spmi->dev,
+	dev_info(&pon->pdev->dev,
 		"hw_reset reason2 is 0x%x\n", reg);
 	return 0;
 }
