@@ -646,8 +646,8 @@ int qpnp_pon_is_ps_hold_reset(void)
 	if (!pon)
 		return 0;
 
-	rc = spmi_ext_register_readl(pon->pdev->ctrl, pon->pdev->sid,
-		QPNP_POFF_REASON1(pon), &reg, 1);
+	rc = regmap_read(pon->regmap, QPNP_POFF_REASON1(pon), &reg);
+
 	if (rc) {
 		dev_err(&pon->pdev->dev,
 			"Unable to read addr=%x, rc(%d)\n",
@@ -662,8 +662,7 @@ int qpnp_pon_is_ps_hold_reset(void)
 	dev_info(&pon->pdev->dev,
 		"hw_reset reason1 is 0x%x\n", reg);
 
-	rc = spmi_ext_register_readl(pon->pdev->ctrl, pon->pdev->sid,
-		QPNP_POFF_REASON2(pon), &reg, 1);
+	rc = regmap_read(pon->regmap, QPNP_POFF_REASON2(pon), &reg);
 
 	dev_info(&pon->pdev->dev,
 		"hw_reset reason2 is 0x%x\n", reg);
@@ -680,8 +679,8 @@ int qpnp_pon_is_lpk(void)
 	if (!pon)
 		return 0;
 
-	rc = spmi_ext_register_readl(pon->pdev->ctrl, pon->pdev->sid,
-		QPNP_POFF_REASON1(pon), &reg, 1);
+	rc = regmap_read(pon->regmap, QPNP_POFF_REASON1(pon), &reg);
+
 	if (rc) {
 		dev_err(&pon->pdev->dev,
 			"Unable to read addr=%x, rc(%d)\n",
@@ -696,8 +695,7 @@ int qpnp_pon_is_lpk(void)
 	dev_info(&pon->pdev->dev,
 	"hw_reset reason1 is 0x%x\n", reg);
 
-	rc = spmi_ext_register_readl(pon->pdev->ctrl, pon->pdev->sid,
-		QPNP_POFF_REASON2(pon), &reg, 1);
+	rc = regmap_read(pon->regmap, QPNP_POFF_REASON2(pon), &reg);
 
 	dev_info(&pon->pdev->dev,
 		"hw_reset reason2 is 0x%x\n", reg);
